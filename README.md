@@ -1,1 +1,1 @@
-# Drone-Sound-Detection-Capstone-Project
+# Drone Sound Detection Capstone Project
