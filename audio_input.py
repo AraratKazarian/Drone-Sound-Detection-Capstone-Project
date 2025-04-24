@@ -4,7 +4,7 @@ import pickle
 import python_speech_features as psf  # If you used MFCCs
 
 # Load your trained model
-with open("drone_model.pkl", "rb") as f:
+with open("cfl_model.pkl", "rb") as f:
     model = pickle.load(f)
 
 # Parameters
