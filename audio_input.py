@@ -2,6 +2,10 @@ import sounddevice as sd
 import numpy as np
 import pickle
 import python_speech_features as psf  # If you used MFCCs
+import librosa
+import warnings
+from cryptography.utils import CryptographyDeprecationWarning
+warnings.filterwarnings("ignore", category=CryptographyDeprecationWarning)
 
 # Load your trained model
 with open("clf_model.pkl", "rb") as f:
@@ -13,10 +17,19 @@ SAMPLE_RATE = 16000  # Hz
 CHANNELS = 1
 CHUNK_SIZE = SAMPLE_RATE * CHUNK_DURATION
 
+# Normalize audio function
+def normalize_audio(audio_np):
+    audio_np = audio_np.astype(np.float32)
+    if np.max(np.abs(audio_np)) > 0:
+        audio_np /= np.max(np.abs(audio_np))
+    return audio_np
+
 # Preprocessing function
-def extract_features(audio_data, sample_rate):
-    mfccs = psf.mfcc(audio_data, samplerate=sample_rate, numcep=13)
-    return np.mean(mfccs, axis=0).reshape(1, -1)
+# Real-time feature extraction with librosa (to match training)
+def extract_features_librosa(audio_data, sample_rate):
+    # Use librosa to extract MFCC from raw audio data
+    mfccs = librosa.feature.mfcc(y=audio_data, sr=sample_rate, n_mfcc=13)
+    return np.mean(mfccs, axis=1).reshape(1, -1)
 
 # Callback for real-time processing
 def callback(indata, frames, time, status):
@@ -26,18 +39,19 @@ def callback(indata, frames, time, status):
     # Convert audio to 1D array
     audio_np = indata[:, 0]
 
-    # Normalize if needed
-    audio_np = audio_np.astype(np.float32)
-    audio_np /= np.max(np.abs(audio_np), axis=0)
+    # Normalize the audio (if needed, based on how you trained)
+    audio_np = normalize_audio(audio_np)
 
-    # Extract features
-    features = extract_features(audio_np, SAMPLE_RATE)
+    # Extract features using Librosa (to match training)
+    features = extract_features_librosa(audio_np, SAMPLE_RATE)
 
     # Predict
     prediction = model.predict(features)
-
-    if prediction[0] == "drone":
+    print(prediction)
+    if prediction == 0:
         print("🚨 Drone sound detected!")
+    else:
+        print("✅ Non-drone sound detected.")
 
 print("Listening... Press Ctrl+C to stop.")
 
