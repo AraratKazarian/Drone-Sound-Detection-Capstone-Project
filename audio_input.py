@@ -44,7 +44,7 @@ class AudioCNN(nn.Module):
 
 # Load model
 model = AudioCNN(MAX_LEN, N_MFCC).to(DEVICE)
-model.load_state_dict(torch.load("audio_cnn_weights.pth", map_location=DEVICE))
+model.load_state_dict(torch.load("model_development/audio_cnn_weights.pth", map_location=DEVICE))
 model.eval()
 
 # Audio & MFCC extraction
