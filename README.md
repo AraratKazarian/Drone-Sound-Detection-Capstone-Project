@@ -46,10 +46,7 @@ python audio_input.py
 – Streams mic input, extracts MFCCs, and prints “DRONE” / “NO DRONE”.
 
 📂 Repository Structure
-graphql
-Copy
-Edit
-.
+
 ├── data/
 │   ├── drone/                   # Raw drone audio clips (.wav)
 │   └── non_drone/               # Raw non-drone audio clips (.wav)
