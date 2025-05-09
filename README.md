@@ -38,9 +38,14 @@ This project builds a **real-time**, **sound-based** drone detector using machin
 ├── results/
 │   ├── figures/                  # Plots & spectrograms
 │   └── tables/                   # LaTeX and CSV tables
-├── README.md                     # ← you are here
-├── LICENSE
-└── .gitignore
+├── report/                       # LaTeX report materials
+│   ├── capstone.tex              # Main LaTeX file
+│   ├── bibliography.bib          # BibTeX references
+│   ├── UI.png                    # GUI screenshot
+│   ├── mel_spectrogram_comparison.png  # Spectrogram comparison figure
+│   └── capstone.pdf              # Final compiled PDF
+└── README.md                     # ← you are here
+
 ```
 
 ## 📊 Data
