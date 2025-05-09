@@ -52,7 +52,9 @@ This project builds a **real-time**, **sound-based** drone detector using machin
 - **Augmentation & Extras**
   - Manual laptop‐mic recordings  
   - Freesound.org & BBC SFX grabs  
-  - All clips resampled to 16 kHz, segmented into 1 s WAVs  
+  - All clips resampled to 16 kHz, segmented into 1 s WAVs
+  
+- **[Download the full dataset (Google Drive)](https://drive.google.com/file/d/1wigM2843y82162ZKT2NGBOlYmm8BQFwa/view?usp=sharing)**
 
 - **Final counts after augmentation:**
   - **Drone**: 2 400 → 10 925  
