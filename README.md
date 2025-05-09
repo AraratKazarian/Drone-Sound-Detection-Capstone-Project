@@ -37,3 +37,102 @@ This project builds a **real-time**, **sound-based** drone detector using machin
 ├── README.md                     # ← you are here
 ├── LICENSE
 └── .gitignore
+```
+
+📊 Data
+DroneAudioDataset (GitHub)
+
+1 332 drone clips (Parrot Mambo, Bebop)
+
+10 372 non-drone clips (wind, vehicles, voices, etc.)
+
+Augmentation & Extras
+
+Manual laptop mic recordings
+
+Freesound.org & BBC SFX grabs
+
+All clips resampled to 16 kHz, segmented into 1 s WAVs
+
+Final counts after augmentation:
+
+Drone: 2 400 → 10 925
+
+Non-drone: 13 806 → 11 767
+
+Features
+
+13 MFCCs × 32 time‐frames per clip
+
+Saved in audio_features.npz
+
+⚙️ Methods
+1. Data Preparation
+Resample → Segment → MFCC
+
+Stratified 80/20 train/test split
+
+Drone class augmented (time-stretch, pitch-shift, noise)
+
+2. Model Selection
+We compared six classifiers on the same MFCC inputs:
+
+K-Nearest Neighbors (KNN): simple, clusters intact
+
+Logistic Regression: linear baseline
+
+SVM: max-margin (RBF kernel)
+
+Random Forest: ensemble of trees, robust to noise
+
+XGBoost: gradient-boosted trees, top accuracy
+
+CNN: 2D conv on MFCC maps, best generalization
+
+Each non-CNN model was tuned via grid-search + 5-fold CV.
+
+3. Evaluation & Tuning
+Model	Accuracy	F1-Score
+KNN	0.970	0.970
+Logistic Regression	0.889	0.889
+SVM	0.970	0.970
+Random Forest	0.980	0.980
+XGBoost	0.983	0.983
+CNN	0.971	0.971
+
+Why CNN in deployment?
+• Learns local time-frequency filters (propeller harmonics)
+• Generalizes to new noise patterns
+• Very fast on modern hardware (real-time feasible)
+
+4. Real-Time App
+Captures 1 s audio windows from mic
+
+Extracts MFCC → CNN → predicts “drone” vs. “non-drone”
+
+Displays live mel-spectrogram + probability bars
+
+
+🔎 Findings
+Field test (Azatazen Polygon):
+Detected FPV drone reliably at 30–40 m in outdoor noise.
+
+🚀 Future Work
+Local testing in Armenia (schools, events, campuses)
+
+Portable unit (microcontroller + mic)
+
+Expanded dataset: windy, mountainous, urban canyons
+
+Partnerships: civic bodies, heritage sites
+
+Collab with national security for controlled “battlefield” drills
+
+🙏 Acknowledgments
+Gagik Khalafyan (Supervisor): expert guidance & feedback
+
+AUA Drone Club: FPV drone access, test setups
+
+American University of Armenia: resources & support
+
+
