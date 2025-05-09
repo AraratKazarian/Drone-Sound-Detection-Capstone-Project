@@ -10,6 +10,10 @@ date: "2025-05-09"
 
 # Real-Time Drone Sound Detection
 
+> ## ⚠️ **IMPORTANT WARNING**
+> **Before running the real-time UI,** you **must disable all system audio enhancement tools** (noise suppression, echo cancellation, automatic gain control, spatial audio, etc.).  
+> These features will **suppress** the drone’s distinctive audio signature and **severely degrade** detection performance.
+
 ## 📖 Overview
 Small drones are increasingly used in both military and civilian contexts, but are hard to spot visually or by radar.  
 This project builds a **real-time**, **sound-based** drone detector using machine learning.
@@ -33,7 +37,7 @@ This project builds a **real-time**, **sound-based** drone detector using machin
 │   └── audio_input.py            # Live capture & GUI
 ├── results/
 │   ├── figures/                  # Plots & spectrograms
-│   └── tables/                   # LaTeX tables
+│   └── tables/                   # LaTeX and CSV tables
 ├── README.md                     # ← you are here
 ├── LICENSE
 └── .gitignore
